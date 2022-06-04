@@ -36,6 +36,20 @@ class ChessGame:
                     self.winner = self.black_player
                 else:
                     self.winner = self.white_player
+            #if the move result into a draw print the type of draw
+            else:
+                if self.board.is_insufficient_material():
+                    print('insufficient material')
+                    self.winner = "Draw"
+                elif self.board.is_stalemate():
+                    print('stalemate')
+                    self.winner = "Draw"
+                elif self.board.is_seventyfive_moves():
+                    print('seventyfive moves')
+                    self.winner = "Draw"
+                elif self.board.is_fivefold_repetition():
+                    print('fivefold repetition')
+                    self.winner = "Draw"
         else:
             print('Invalid move')
             
@@ -53,8 +67,8 @@ def main():
         move = random.choice(list(game.get_valid_moves(game.board.turn)))
         game.make_move(move)
         game.print_board()
-    #print the winner
-    print(game.winner.name + ' wins!')
+    #print the result and number moves
+    print(game.board.result() + ' in ' + str(game.move_number//2) + ' moves')
 
 if __name__ == "__main__":
     main()
